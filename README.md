@@ -1,42 +1,44 @@
 # Funhome — Website cho thuê chung cư mini & phòng trọ
 
-Static site (HTML/CSS/JS thuần), deploy thẳng lên Netlify, không cần build.
+Static site (HTML/CSS/JS thuần), deploy thẳng lên Netlify. Slogan: **Ở vui mỗi ngày**.
 
 ## Cấu trúc
 ```
-index.html                → Trang chủ (landing, năng lực, gallery, listing)
-funhome-map.html          → Bản đồ tìm phòng + filter   (URL đẹp: /timphong)
-funhome-tuyendung.html    → Tuyển dụng + ứng tuyển        (URL đẹp: /tuyendung)
-funhome-app.html          → Đăng nhập + quản lý/thêm phòng (URL đẹp: /quanly)
-funhome-theme.css         → Hệ thiết kế dùng chung (xanh đậm)
-funhome-data.js           → Dữ liệu phòng + cấu hình dùng chung
-netlify.toml              → Cấu hình redirect + headers cho Netlify
+index.html                → Trang chủ (SEO, gallery, phòng nổi bật thật, FAQ)
+funhome-map.html          → Bản đồ phòng trống: 40 tòa nhà + đặt lịch xem phòng   (/timphong)
+funhome-tuyendung.html    → Tuyển dụng                                            (/tuyendung)
+funhome-app.html          → Đăng nhập + quản lý/thêm phòng                        (/quanly)
+funhome-theme.css         → Hệ thiết kế dùng chung (xanh đậm + logo Funhome)
+funhome-data.js           → Cấu hình thương hiệu + logo + nút liên hệ nổi + helpers
+funhome-inventory.js      → Snapshot kho phòng thật (40 tòa / 199 phòng) — dữ liệu dự phòng
+favicon.svg, og-image.png → Nhận diện & ảnh chia sẻ mạng xã hội
+robots.txt, sitemap.xml   → SEO
+netlify.toml              → Redirect URL đẹp + headers
+tich-hop/                 → Google Apps Script (Code.gs) + hướng dẫn nối Sheet/Zalo
 ```
 
-## Cách deploy
+## Deploy (Netlify)
+- **Kéo–thả:** Netlify → Add new site → Deploy manually → kéo cả thư mục (có index.html).
+- **Qua GitHub:** push repo → Netlify → Import from Git → Build command để trống, Publish directory `.`.
 
-### Cách A — Kéo–thả (nhanh nhất)
-1. Vào https://app.netlify.com → "Add new site" → "Deploy manually".
-2. Kéo TOÀN BỘ thư mục này (chứa index.html) vào ô upload. Xong.
+Sau deploy, đổi `https://funhome.vn` trong các thẻ canonical/og và `sitemap.xml`/`robots.txt` thành domain thật của bạn.
 
-### Cách B — Qua GitHub (khuyến nghị, tự động cập nhật)
-1. Tạo repo mới trên GitHub, upload tất cả file này vào (giữ nguyên cấu trúc, index.html ở thư mục gốc).
-2. Netlify → "Add new site" → "Import from Git" → chọn repo.
-3. Build command: để trống. Publish directory: `.` (dấu chấm). Deploy.
-4. Mỗi lần push GitHub, Netlify tự deploy lại.
+## Cấu hình nhanh (funhome-data.js)
+```js
+mapsKey:    ""   // Google Maps API key. Trống = dùng OpenStreetMap miễn phí.
+roomsApi:   ""   // URL Apps Script (GET) — phòng tự cập nhật từ Sheet + ảnh thật
+bookingApi: ""   // URL Apps Script (POST) — đặt lịch → Sheet + Zalo
+```
+Để trống `roomsApi` → web dùng snapshot `funhome-inventory.js`. Để trống `bookingApi` → form đặt lịch chỉ log ra console (demo).
 
-Sau khi deploy, site chạy tại `ten-cua-ban.netlify.app`. Các URL đẹp: `/timphong`, `/tuyendung`, `/quanly`.
+## Nối dữ liệu thật + đặt lịch → Sheet/Zalo
+Xem **`tich-hop/HUONG-DAN.md`**: tạo Apps Script, deploy Web App, dán URL vào `roomsApi`/`bookingApi`.
+Kết quả: bản đồ lấy phòng trực tiếp từ Google Sheet (kèm ảnh), form đặt lịch ghi vào tab `DatLich` và bắn thông báo Zalo cho Sale.
 
-## Cấu hình (mở funhome-data.js)
-- `FUNHOME_CONFIG.mapsKey`: dán Google Maps API key. Để trống "" → tự dùng OpenStreetMap miễn phí.
-- `FUNHOME_CONFIG.sheetCsv`: dán link CSV Google Sheet (Publish to web → CSV) để tự nạp dữ liệu phòng.
-  Cột cần: id | title | type | price | area | address | district | lat | lng | amenities | image | beds | note
-  (amenities ngăn cách bằng dấu ";")
+## Thông tin thương hiệu
+- Hotline / Zalo: 0919 293 277
+- Email: contact.funhome@gmail.com
+- Facebook: /Funhome · Instagram: /funhome8386
 
 ## Đăng nhập demo (trang /quanly)
 Email: demo@funhome.vn — Mật khẩu: funhome
-
-## Muốn subdomain thật (timphong.funhome.vn ...)?
-Trên Netlify, subdomain thật cần cấu hình DNS. Có 2 hướng:
-1. Đơn giản: dùng URL path /timphong, /tuyendung, /quanly (đã cấu hình sẵn) — không cần DNS.
-2. Subdomain riêng: tạo mỗi site Netlify riêng cho từng trang, rồi trỏ CNAME của từng subdomain (timphong, tuyendung, quanly) về site tương ứng trong phần Domain settings.

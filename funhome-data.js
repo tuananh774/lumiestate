@@ -15,11 +15,18 @@
    ========================================================= */
 const FUNHOME_CONFIG = {
   brand: "Funhome",
-  hotline: "1900 1234",
-  email: "hello@funhome.vn",
+  slogan: "Ở vui mỗi ngày",
+  hotline: "0919293277",
+  zalo: "0919293277",
+  email: "contact.funhome@gmail.com",
+  facebook: "https://www.facebook.com/Funhome",
+  instagram: "https://www.instagram.com/funhome8386",
   mapsKey: "",                 // 👈 Google Maps API key (tùy chọn)
-  sheetCsv: "",                // 👈 Link CSV Google Sheet (tùy chọn)
-  // Tên miền/subdomain — đổi sang domain thật khi triển khai
+  // 👇 API live qua Google Apps Script (xem HUONG-DAN-APPS-SCRIPT.md).
+  //    Để trống → web dùng snapshot trong funhome-inventory.js.
+  roomsApi: "",                // GET  → trả JSON kho phòng {buildings, rooms}
+  bookingApi: "",              // POST → ghi Sheet 'DatLich' + gửi Zalo cho Sale
+  promo: "Đăng ký xem phòng qua Funhome — nhận ngay gói khuyến mại dọn phòng trị giá 200.000đ",
   domains: {
     home:   "index.html",
     map:    "funhome-map.html",       // → timphong.funhome.vn
@@ -27,6 +34,34 @@ const FUNHOME_CONFIG = {
     app:    "funhome-app.html"        // → quanly.funhome.vn
   }
 };
+
+/* Logo Funhome (nhà + cửa sổ 4 ô + mặt cười) — đổi màu qua currentColor */
+const FH_LOGO_SVG = '<svg viewBox="0 0 64 64" fill="none" aria-hidden="true">'
+ +'<path d="M9 31 32 13 55 31" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>'
+ +'<path d="M16 30V51" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>'
+ +'<path d="M48 30V51" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>'
+ +'<path d="M21 41Q32 53 43 41" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>'
+ +'<g fill="currentColor"><rect x="27" y="22" width="4.4" height="4.4" rx="1"/><rect x="32.6" y="22" width="4.4" height="4.4" rx="1"/><rect x="27" y="27.6" width="4.4" height="4.4" rx="1"/><rect x="32.6" y="27.6" width="4.4" height="4.4" rx="1"/></g></svg>';
+
+/* Nút liên hệ nổi (Zalo + Gọi) — tự chèn vào mọi trang */
+function fhRenderFab(){
+  if(document.querySelector('.fh-fab')) return;
+  const z=(FUNHOME_CONFIG.zalo||'').replace(/\D/g,'');
+  const tel=(FUNHOME_CONFIG.hotline||'').replace(/\s/g,'');
+  const el=document.createElement('div');
+  el.className='fh-fab';
+  el.innerHTML=`
+    <a class="fh-fab-btn zalo" href="https://zalo.me/${z}" target="_blank" rel="noopener" aria-label="Chat Zalo">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M12 2C6.48 2 2 5.94 2 10.8c0 2.7 1.42 5.11 3.66 6.74-.13.94-.53 2.28-1.45 3.42-.2.25.02.6.33.53 1.72-.36 3.2-1.08 4.22-1.74 1 .28 2.06.45 3.24.45 5.52 0 10-3.94 10-8.8S17.52 2 12 2z"/></svg>
+      <span>Zalo</span>
+    </a>
+    <a class="fh-fab-btn call" href="tel:${tel}" aria-label="Gọi hotline">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.5-1.1a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2z"/></svg>
+      <span>Gọi ngay</span>
+    </a>`;
+  document.body.appendChild(el);
+}
+document.addEventListener('DOMContentLoaded', fhRenderFab);
 
 let ROOMS = [
   {id:1,title:"Chung cư mini full nội thất, ban công thoáng",type:"Chung cư mini",price:5500000,area:32,address:"Ngõ 165 Cầu Giấy",district:"Cầu Giấy",lat:21.0362,lng:105.7906,beds:1,amenities:["Điều hòa","Nóng lạnh","Máy giặt","Thang máy","Ban công","Full nội thất","Bảo vệ 24/7","Wifi"],image:"https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=900&q=75",images:["https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=900&q=75","https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=900&q=75","https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=900&q=75"],note:"Căn hộ mới, thiết kế hiện đại, gần Đại học Quốc gia và nhiều trường đại học."},

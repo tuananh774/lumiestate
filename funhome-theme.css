@@ -130,3 +130,40 @@ footer.site{background:var(--brand-900);color:#B7C2DC;padding:66px 0 30px;margin
 
 @media(max-width:960px){.nav-links{display:none}.foot-grid{grid-template-columns:1fr 1fr}.form-row{grid-template-columns:1fr}}
 @media(max-width:620px){.section{padding:60px 0}.wrap{padding:0 18px}.burger{display:flex}.foot-grid{grid-template-columns:1fr 1fr}}
+
+/* ===== NÚT LIÊN HỆ NỔI (FAB) ===== */
+.fh-fab{position:fixed;right:18px;bottom:18px;z-index:80;display:flex;flex-direction:column;gap:10px}
+.fh-fab-btn{display:flex;align-items:center;gap:0;overflow:hidden;height:52px;width:52px;border-radius:999px;color:#fff;box-shadow:0 8px 22px rgba(15,25,50,.28);transition:.25s;position:relative}
+.fh-fab-btn svg{min-width:52px;height:52px;padding:13px 0 0 0;display:block;margin:0 auto}
+.fh-fab-btn span{white-space:nowrap;font-weight:600;font-size:14px;opacity:0;max-width:0;transition:.25s;padding-right:0}
+.fh-fab-btn:hover{width:150px;padding-right:6px}
+.fh-fab-btn:hover span{opacity:1;max-width:110px;padding-right:14px}
+.fh-fab-btn.zalo{background:#0068FF}
+.fh-fab-btn.call{background:#16A34A}
+.fh-fab-btn.zalo::after{content:"";position:absolute;inset:0;border-radius:999px;box-shadow:0 0 0 0 rgba(0,104,255,.5);animation:fhpulse 2.2s infinite}
+@keyframes fhpulse{0%{box-shadow:0 0 0 0 rgba(0,104,255,.45)}70%{box-shadow:0 0 0 14px rgba(0,104,255,0)}100%{box-shadow:0 0 0 0 rgba(0,104,255,0)}}
+@media(max-width:620px){.fh-fab{right:12px;bottom:12px}.fh-fab-btn{height:48px;width:48px}.fh-fab-btn svg{min-width:48px;height:48px;padding-top:12px}}
+
+/* ===== FAQ ===== */
+.faq{max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.faq details{background:#fff;border:1px solid var(--line);border-radius:14px;padding:4px 20px;transition:.2s}
+.faq details[open]{box-shadow:var(--shadow-sm);border-color:var(--brand-200,#C7D6F5)}
+.faq summary{list-style:none;cursor:pointer;padding:16px 0;font-weight:600;color:var(--ink);font-size:16px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:22px;color:var(--brand-600);font-weight:400;transition:.2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq p{padding:0 0 18px;color:var(--muted);font-size:14.5px;margin:0}
+
+/* ===== PROMO ===== */
+.fh-promo{display:flex;align-items:center;gap:10px;background:var(--accent-soft);border:1px solid #F7DBA7;color:var(--accent-600);border-radius:12px;padding:11px 14px;font-size:13.5px;font-weight:500;line-height:1.4}
+.fh-promo svg{flex-shrink:0;color:var(--accent)}
+
+/* ===== BUILDING MARKER COUNT (map) ===== */
+.bld-badge{display:inline-flex;align-items:center;gap:5px;background:var(--brand-600);color:#fff;font-weight:700;font-size:12px;padding:5px 10px;border-radius:999px;border:2px solid #fff;box-shadow:0 3px 8px rgba(0,0,0,.28);white-space:nowrap}
+.bld-badge.sel{background:var(--accent);color:#3a2400}
+
+/* ===== BOOKING FORM SUCCESS ===== */
+.book-ok{display:none;text-align:center;padding:16px 0}
+.book-ok.show{display:block}
+.book-ok .check{width:64px;height:64px;border-radius:50%;background:var(--brand-50);color:var(--brand-600);display:grid;place-items:center;margin:0 auto 16px}
+.book-ok h3{margin-bottom:8px}.book-ok p{color:var(--muted);font-size:14.5px}
