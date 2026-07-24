@@ -21,7 +21,7 @@ const FUNHOME_CONFIG = {
   sheetCsv: "",                // 👈 Link CSV Google Sheet (tùy chọn)
   // Tên miền/subdomain — đổi sang domain thật khi triển khai
   domains: {
-    home:   "funhome.html",
+    home:   "index.html",
     map:    "funhome-map.html",       // → timphong.funhome.vn
     jobs:   "funhome-tuyendung.html", // → tuyendung.funhome.vn
     app:    "funhome-app.html"        // → quanly.funhome.vn

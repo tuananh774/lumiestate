@@ -1,0 +1,24 @@
+# Cấu hình Netlify cho website Funhome (static site, không cần build)
+[build]
+  publish = "."
+
+# URL gọn cho các trang chức năng (dạng "subdomain path")
+[[redirects]]
+  from = "/timphong"
+  to = "/funhome-map.html"
+  status = 200
+[[redirects]]
+  from = "/tuyendung"
+  to = "/funhome-tuyendung.html"
+  status = 200
+[[redirects]]
+  from = "/quanly"
+  to = "/funhome-app.html"
+  status = 200
+
+# Bảo mật cơ bản
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

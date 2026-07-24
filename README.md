@@ -1,29 +1,42 @@
 # Funhome — Website cho thuê chung cư mini & phòng trọ
 
-## Cấu trúc file
-| File | Vai trò | Subdomain gợi ý |
-|------|---------|-----------------|
-| `funhome.html` | Trang chủ (landing, năng lực, gallery, listing) | funhome.vn |
-| `funhome-map.html` | Bản đồ tìm phòng + bộ lọc theo bản đồ | timphong.funhome.vn |
-| `funhome-tuyendung.html` | Tuyển dụng + ứng tuyển | tuyendung.funhome.vn |
-| `funhome-app.html` | Đăng nhập + dashboard thêm/quản lý phòng | quanly.funhome.vn |
-| `funhome-theme.css` | Hệ thiết kế dùng chung (màu xanh đậm) | — |
-| `funhome-data.js` | Dữ liệu phòng + cấu hình dùng chung | — |
+Static site (HTML/CSS/JS thuần), deploy thẳng lên Netlify, không cần build.
 
-> ⚠️ Giữ cả 6 file trong CÙNG một thư mục thì trang mới chạy đúng.
+## Cấu trúc
+```
+index.html                → Trang chủ (landing, năng lực, gallery, listing)
+funhome-map.html          → Bản đồ tìm phòng + filter   (URL đẹp: /timphong)
+funhome-tuyendung.html    → Tuyển dụng + ứng tuyển        (URL đẹp: /tuyendung)
+funhome-app.html          → Đăng nhập + quản lý/thêm phòng (URL đẹp: /quanly)
+funhome-theme.css         → Hệ thiết kế dùng chung (xanh đậm)
+funhome-data.js           → Dữ liệu phòng + cấu hình dùng chung
+netlify.toml              → Cấu hình redirect + headers cho Netlify
+```
 
-## Chạy thử
-Mở `funhome.html` bằng trình duyệt. (Nên chạy qua một web server tĩnh để bản đồ & fetch hoạt động tốt nhất, ví dụ: `python3 -m http.server` rồi mở http://localhost:8000/funhome.html)
+## Cách deploy
 
-## Cấu hình (mở `funhome-data.js`)
+### Cách A — Kéo–thả (nhanh nhất)
+1. Vào https://app.netlify.com → "Add new site" → "Deploy manually".
+2. Kéo TOÀN BỘ thư mục này (chứa index.html) vào ô upload. Xong.
+
+### Cách B — Qua GitHub (khuyến nghị, tự động cập nhật)
+1. Tạo repo mới trên GitHub, upload tất cả file này vào (giữ nguyên cấu trúc, index.html ở thư mục gốc).
+2. Netlify → "Add new site" → "Import from Git" → chọn repo.
+3. Build command: để trống. Publish directory: `.` (dấu chấm). Deploy.
+4. Mỗi lần push GitHub, Netlify tự deploy lại.
+
+Sau khi deploy, site chạy tại `ten-cua-ban.netlify.app`. Các URL đẹp: `/timphong`, `/tuyendung`, `/quanly`.
+
+## Cấu hình (mở funhome-data.js)
 - `FUNHOME_CONFIG.mapsKey`: dán Google Maps API key. Để trống "" → tự dùng OpenStreetMap miễn phí.
 - `FUNHOME_CONFIG.sheetCsv`: dán link CSV Google Sheet (Publish to web → CSV) để tự nạp dữ liệu phòng.
-  Cột Sheet cần: id | title | type | price | area | address | district | lat | lng | amenities | image | beds | note
+  Cột cần: id | title | type | price | area | address | district | lat | lng | amenities | image | beds | note
   (amenities ngăn cách bằng dấu ";")
 
-## Đăng nhập demo (trang quản lý)
+## Đăng nhập demo (trang /quanly)
 Email: demo@funhome.vn — Mật khẩu: funhome
 
-## Triển khai lên subdomain thật
-1. Upload thư mục lên hosting (Vercel/Netlify/GitHub Pages...).
-2. Trỏ mỗi subdomain (CNAME) tới trang tương ứng, hoặc dùng cùng 1 host rồi cập nhật `FUNHOME_CONFIG.domains` sang URL thật.
+## Muốn subdomain thật (timphong.funhome.vn ...)?
+Trên Netlify, subdomain thật cần cấu hình DNS. Có 2 hướng:
+1. Đơn giản: dùng URL path /timphong, /tuyendung, /quanly (đã cấu hình sẵn) — không cần DNS.
+2. Subdomain riêng: tạo mỗi site Netlify riêng cho từng trang, rồi trỏ CNAME của từng subdomain (timphong, tuyendung, quanly) về site tương ứng trong phần Domain settings.
