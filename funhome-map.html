@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bản đồ tìm phòng — Funhome</title>
+<meta name="description" content="Tìm chung cư mini, phòng trọ trên bản đồ Hà Nội. Lọc theo khu vực, giá và tiện nghi ngay trên bản đồ Funhome." />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="funhome-theme.css">
+<style>
+body{overflow-x:hidden}
+.subbar{background:var(--brand-50);border-bottom:1px solid var(--brand-100)}
+.subbar .wrap{display:flex;align-items:center;gap:8px;padding:9px 24px;font-size:13px;color:var(--brand-700)}
+.subbar b{font-weight:600}
+.app-head{padding:26px 0 18px}
+.app-head h1{font-size:clamp(24px,3vw,32px);letter-spacing:-.02em}
+.app-head p{color:var(--muted);font-size:15px;margin-top:6px}
+/* filter bar */
+.mfilters{display:grid;grid-template-columns:repeat(4,1fr) auto;gap:12px;align-items:end;margin-top:18px}
+.amen-row{margin-top:14px;display:flex;flex-wrap:wrap;gap:9px;align-items:center}
+.amen-row .lbl{font-size:12.5px;font-weight:600;color:var(--body);margin-right:4px}
+.results-head{display:flex;align-items:center;justify-content:space-between;margin:20px 0 14px;flex-wrap:wrap;gap:12px}
+.results-head h3{font-size:19px}.results-head .count{color:var(--muted);font-weight:400;font-size:15px}
+.view-toggle{display:flex;gap:6px;background:#fff;border:1px solid var(--line);border-radius:11px;padding:4px}
+.view-toggle button{padding:7px 14px;border-radius:8px;font-size:13.5px;font-weight:600;color:var(--muted);display:flex;align-items:center;gap:6px}
+.view-toggle button.on{background:var(--brand-50);color:var(--brand-700)}
+/* split */
+.split{display:grid;grid-template-columns:1fr 1.1fr;gap:22px;align-items:start;padding-bottom:60px}
+.split.list-only{grid-template-columns:1fr}
+.list-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-height:calc(100vh - 90px);overflow:auto;padding-right:4px}
+.list-only .list-col{grid-template-columns:repeat(3,1fr);max-height:none;overflow:visible}
+#map{position:sticky;top:82px;height:calc(100vh - 104px);min-height:560px;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow-sm);background:#e8eef7}
+.map-note{position:absolute;z-index:5;bottom:12px;left:12px;background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:12px;color:var(--muted);max-width:280px;box-shadow:var(--shadow-sm)}
+/* detail modal internals */
+#detailContent .d-img{width:100%;height:340px;object-fit:cover}
+.d-pad{padding:26px 30px 30px}
+.d-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap}
+.d-head h3{font-size:24px}.d-head .d-loc{color:var(--muted);font-size:14.5px;margin-top:6px}
+.d-price{font-size:26px;font-weight:800;color:var(--brand-600);white-space:nowrap}.d-price small{font-size:14px;color:var(--muted);font-weight:500}
+.d-stats{display:flex;gap:26px;flex-wrap:wrap;margin:22px 0;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.d-stats .s b{display:block;font-size:18px;color:var(--ink)}.d-stats .s span{font-size:13px;color:var(--muted)}
+.d-sec h4{font-size:16px;margin:20px 0 12px}
+.d-amens{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.d-amens .a{display:flex;align-items:center;gap:9px;font-size:14.5px;color:var(--body)}.d-amens .a svg{width:18px;height:18px;color:var(--brand-600)}
+.d-actions{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+@media(max-width:960px){
+  .split{grid-template-columns:1fr}.list-col{grid-template-columns:1fr 1fr;max-height:none;overflow:visible}
+  #map{position:relative;top:0;height:440px;min-height:0;order:-1}.mfilters{grid-template-columns:1fr 1fr}
+}
+@media(max-width:620px){.mfilters,.list-col,.list-only .list-col,.d-amens{grid-template-columns:1fr}.nav-cta .btn-ghost{display:none}}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <a href="funhome.html" class="logo"><span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9.5 21v-6h5v6"/></svg></span>Fun<b>home</b></a>
+    <nav class="nav-links"><a href="funhome.html">Trang chủ</a><a href="funhome.html#nang-luc">Về chúng tôi</a><a href="funhome-map.html">Bản đồ tìm phòng</a><a href="funhome-tuyendung.html">Tuyển dụng</a></nav>
+    <div class="nav-cta"><a class="btn btn-ghost" href="funhome-app.html">Đăng nhập / Đăng phòng</a><a href="funhome.html" class="btn btn-primary">Trang chủ</a></div>
+  </div>
+</header>
+
+<div class="subbar"><div class="wrap">🌐 <b>timphong.funhome.vn</b> · Bản đồ tìm phòng</div></div>
+
+<div class="wrap">
+  <div class="app-head">
+    <h1>Bản đồ tìm phòng</h1>
+    <p>Lọc theo khu vực, loại hình, mức giá và tiện nghi — xem ngay vị trí phòng trên bản đồ.</p>
+    <div class="search-bar" style="margin-top:16px">
+      <div class="mfilters">
+        <div class="field"><label>Khu vực</label><select id="fArea"><option value="">Tất cả quận</option></select></div>
+        <div class="field"><label>Loại hình</label><select id="fType"><option value="">Tất cả loại</option><option>Chung cư mini</option><option>Phòng trọ</option><option>Studio</option></select></div>
+        <div class="field"><label>Mức giá</label><select id="fPrice"><option value="">Mọi mức giá</option><option value="0-3000000">Dưới 3 triệu</option><option value="3000000-5000000">3 – 5 triệu</option><option value="5000000-8000000">5 – 8 triệu</option><option value="8000000-99000000">Trên 8 triệu</option></select></div>
+        <div class="field"><label>Sắp xếp</label><select id="fSort"><option value="default">Mới nhất</option><option value="price-asc">Giá thấp → cao</option><option value="price-desc">Giá cao → thấp</option><option value="area-desc">Diện tích lớn nhất</option></select></div>
+        <button class="btn btn-ghost" onclick="resetFilters()" style="height:44px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>Đặt lại</button>
+      </div>
+      <div class="amen-row" id="amenRow"><span class="lbl">Tiện nghi:</span></div>
+    </div>
+    <div class="results-head">
+      <h3>Kết quả <span class="count" id="resultCount"></span></h3>
+      <div class="view-toggle">
+        <button id="btnSplit" class="on" onclick="setView('split')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="7" height="16" rx="1"/><path d="M14 6h7M14 12h7M14 18h7"/></svg>Bản đồ</button>
+        <button id="btnList" onclick="setView('list')"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Lưới</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="split" id="splitWrap">
+    <div class="list-col" id="listCol"></div>
+    <div id="map"><div class="map-note" id="mapNote">Đang tải bản đồ…</div></div>
+  </div>
+</div>
+
+<!-- DETAIL MODAL -->
+<div class="modal" id="detailModal"><div class="modal-bg" onclick="closeModal('detailModal')"></div><div class="modal-box"><button class="modal-close" onclick="closeModal('detailModal')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button><div id="detailContent"></div></div></div>
+
+<script src="funhome-data.js"></script>
+<script>
+let state={area:"",type:"",price:"",sort:"default",amenities:[],view:"split"};
+let mapProvider=null,mapObj=null,markers=[],infoWin=null;
+
+function getFiltered(){
+  let list=ROOMS.filter(r=>{
+    if(state.area&&r.district!==state.area)return false;
+    if(state.type&&r.type!==state.type)return false;
+    if(state.price){const [lo,hi]=state.price.split('-').map(Number);if(r.price<lo||r.price>hi)return false;}
+    if(state.amenities.length&&!state.amenities.every(a=>r.amenities.includes(a)))return false;
+    return true;
+  });
+  if(state.sort==='price-asc')list.sort((a,b)=>a.price-b.price);
+  else if(state.sort==='price-desc')list.sort((a,b)=>b.price-a.price);
+  else if(state.sort==='area-desc')list.sort((a,b)=>b.area-a.area);
+  return list;
+}
+function applyFilters(){
+  state.area=document.getElementById('fArea').value;
+  state.type=document.getElementById('fType').value;
+  state.price=document.getElementById('fPrice').value;
+  state.sort=document.getElementById('fSort').value;
+  renderList();renderMarkers();
+}
+function resetFilters(){state={...state,area:"",type:"",price:"",sort:"default",amenities:[]};['fArea','fType','fPrice'].forEach(id=>document.getElementById(id).value="");document.getElementById('fSort').value="default";document.querySelectorAll('#amenRow .chip').forEach(c=>c.classList.remove('on'));renderList();renderMarkers();}
+function renderList(){
+  const list=getFiltered();
+  document.getElementById('resultCount').textContent=`· ${list.length} phòng`;
+  const col=document.getElementById('listCol');
+  col.innerHTML=list.length?list.map(cardHTML).join(""):`<div class="no-results"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><h3 style="margin-bottom:6px">Không tìm thấy phòng phù hợp</h3><p>Thử nới lỏng bộ lọc hoặc <a href="#" onclick="resetFilters();return false" style="color:var(--brand-600);font-weight:600">đặt lại tất cả</a>.</p></div>`;
+}
+['fArea','fType','fPrice','fSort'].forEach(id=>document.getElementById(id).addEventListener('change',applyFilters));
+
+function setView(v){
+  state.view=v;const wrap=document.getElementById('splitWrap');
+  document.getElementById('btnSplit').classList.toggle('on',v==='split');
+  document.getElementById('btnList').classList.toggle('on',v==='list');
+  if(v==='list')wrap.classList.add('list-only');
+  else{wrap.classList.remove('list-only');
+    setTimeout(()=>{if(mapProvider==='google'&&mapObj){google.maps.event.trigger(mapObj,'resize');fitMap();}if(mapProvider==='leaflet'&&mapObj){mapObj.invalidateSize();fitMap();}},250);}
+}
+
+/* MAP */
+function initMap(){const k=FUNHOME_CONFIG.mapsKey;(k&&k.trim().length>10)?loadGoogle():loadLeaflet();}
+function loadGoogle(){
+  window._fhMapInit=function(){
+    mapProvider='google';
+    mapObj=new google.maps.Map(document.getElementById('map'),{center:{lat:21.0285,lng:105.81},zoom:12,mapTypeControl:false,streetViewControl:false,fullscreenControl:false,styles:[{featureType:"poi",stylers:[{visibility:"off"}]}]});
+    infoWin=new google.maps.InfoWindow();
+    document.getElementById('mapNote').textContent='Bản đồ Google Maps · nhấn marker để xem phòng';
+    renderMarkers();
+  };
+  const s=document.createElement('script');s.src=`https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(FUNHOME_CONFIG.mapsKey)}&callback=_fhMapInit`;s.async=true;s.onerror=()=>{console.warn('Google Maps lỗi → OSM');loadLeaflet();};document.head.appendChild(s);
+}
+function loadLeaflet(){
+  const css=document.createElement('link');css.rel='stylesheet';css.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';document.head.appendChild(css);
+  const s=document.createElement('script');s.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+  s.onload=()=>{
+    mapProvider='leaflet';
+    mapObj=L.map('map',{scrollWheelZoom:false}).setView([21.0285,105.81],12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(mapObj);
+    document.getElementById('mapNote').innerHTML='Bản đồ OpenStreetMap (miễn phí). Dán Google Maps API key trong funhome-data.js để dùng Google Maps.';
+    renderMarkers();
+  };
+  s.onerror=()=>{document.getElementById('mapNote').textContent='Không tải được bản đồ. Kiểm tra kết nối mạng.';};document.head.appendChild(s);
+}
+function clearMarkers(){if(mapProvider==='google')markers.forEach(m=>m.setMap(null));else if(mapProvider==='leaflet')markers.forEach(m=>mapObj.removeLayer(m));markers=[];}
+function renderMarkers(){
+  if(!mapObj||!mapProvider)return;clearMarkers();
+  getFiltered().forEach(r=>{
+    if(mapProvider==='google'){
+      const m=new google.maps.Marker({position:{lat:r.lat,lng:r.lng},map:mapObj,title:r.title,label:{text:priceLabel(r),color:'#fff',fontSize:'11px',fontWeight:'700'},icon:{path:'M -18 -30 h36 a6 6 0 0 1 6 6 v14 a6 6 0 0 1 -6 6 h-13 l-5 8 l-5 -8 h-13 a6 6 0 0 1 -6 -6 v-14 a6 6 0 0 1 6 -6 z',fillColor:'#1E3A8A',fillOpacity:1,strokeColor:'#fff',strokeWeight:2,scale:1,labelOrigin:new google.maps.Point(0,-17)}});
+      m.addListener('click',()=>{infoWin.setContent(popupHTML(r));infoWin.open(mapObj,m);});markers.push(m);
+    }else{
+      const icon=L.divIcon({className:'',html:`<div style="background:#1E3A8A;color:#fff;font-weight:700;font-size:11px;padding:5px 9px;border-radius:20px;box-shadow:0 2px 6px rgba(0,0,0,.3);white-space:nowrap;border:2px solid #fff">${priceLabel(r)}</div>`,iconSize:[46,26],iconAnchor:[23,26]});
+      const m=L.marker([r.lat,r.lng],{icon}).addTo(mapObj);m.bindPopup(popupHTML(r),{maxWidth:240});markers.push(m);
+    }
+  });
+  fitMap();
+}
+function fitMap(){
+  const list=getFiltered();if(!list.length||!mapObj)return;
+  if(mapProvider==='google'){const b=new google.maps.LatLngBounds();list.forEach(r=>b.extend({lat:r.lat,lng:r.lng}));mapObj.fitBounds(b,60);if(list.length===1)mapObj.setZoom(15);}
+  else{mapObj.fitBounds(L.latLngBounds(list.map(r=>[r.lat,r.lng])),{padding:[50,50],maxZoom:15});}
+}
+function popupHTML(r){
+  return `<div style="width:210px;font-family:'Be Vietnam Pro',sans-serif"><img src="${r.image}" style="width:100%;height:110px;object-fit:cover;border-radius:8px;margin-bottom:8px" onerror="fhImg(this)"><div style="font-weight:800;color:#1E3A8A;font-size:16px">${fmtPrice(r.price)}<span style="font-weight:500;color:#6B7590;font-size:12px">/tháng</span></div><div style="font-weight:600;color:#0E1730;font-size:13.5px;margin:3px 0;line-height:1.3">${r.title}</div><div style="color:#6B7590;font-size:12px;margin-bottom:8px">📍 ${r.district} · ${r.area}m²</div><button onclick="closeAllPopups();openDetail(${r.id})" style="width:100%;background:#1E3A8A;color:#fff;border:none;padding:8px;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;font-family:inherit">Xem chi tiết</button></div>`;
+}
+function closeAllPopups(){if(mapProvider==='leaflet'&&mapObj)mapObj.closePopup();if(mapProvider==='google'&&infoWin)infoWin.close();}
+window.focusMarker=function(id){document.querySelectorAll('.card').forEach(c=>c.classList.toggle('active',+c.dataset.id===id));};
+
+function start(){fillAreaSelects(['fArea']);buildAmenChips('amenRow',()=>{renderList();renderMarkers();},state.amenities);renderList();initMap();}
+loadRooms(start);
+</script>
+</body>
+</html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Funhome — Cho thuê chung cư mini &amp; phòng trọ</title>
+<meta name="description" content="Funhome — đơn vị cho thuê & quản lý chung cư mini, phòng trọ chất lượng tại Hà Nội. Phòng kiểm định, giá minh bạch, thủ tục nhanh gọn." />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="funhome-theme.css">
+<style>
+/* ===== HERO ===== */
+.hero{position:relative;overflow:hidden;background:radial-gradient(1200px 520px at 82% -10%,rgba(43,87,196,.16),transparent 60%),radial-gradient(900px 500px at 0% 20%,rgba(245,158,11,.10),transparent 55%),linear-gradient(180deg,#FbFcFe,#F6F8FC)}
+.hero-inner{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;padding:74px 0 84px}
+.hero h1{font-size:clamp(34px,5vw,56px);letter-spacing:-.03em;line-height:1.06}
+.hero h1 span{color:var(--brand-600)}
+.hero p.lead{font-size:19px;color:var(--body);margin:22px 0 30px;max-width:520px}
+.quick-search{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-md);padding:10px;display:grid;grid-template-columns:1fr 1fr auto;gap:8px}
+.qs-field{display:flex;flex-direction:column;padding:8px 12px;border-radius:11px}
+.qs-field:hover{background:var(--brand-50)}
+.qs-field label{font-size:11.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.qs-field select{border:none;background:transparent;font-family:inherit;font-size:15px;font-weight:500;color:var(--ink);outline:none;padding:2px 0;cursor:pointer}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin:26px 0 34px}
+.hero-trust{display:flex;gap:26px;flex-wrap:wrap}
+.hero-trust .t b{font-size:26px;color:var(--ink);font-weight:800;letter-spacing:-.02em;display:block}
+.hero-trust .t span{font-size:13.5px;color:var(--muted)}
+.hero-visual{position:relative}
+.hero-card{border-radius:22px;overflow:hidden;box-shadow:var(--shadow-lg);background:#fff;transform:rotate(1.4deg)}
+.hero-card img{height:430px;width:100%;object-fit:cover}
+.hero-badge{position:absolute;background:#fff;border-radius:16px;box-shadow:var(--shadow-md);padding:14px 18px;display:flex;align-items:center;gap:12px}
+.hero-badge .ic{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;color:#fff}
+.hero-badge b{display:block;font-size:15px;color:var(--ink)}
+.hero-badge small{color:var(--muted);font-size:12.5px}
+.hb1{top:24px;left:-26px;transform:rotate(-3deg)}.hb1 .ic{background:var(--brand-600)}
+.hb2{bottom:30px;right:-22px}.hb2 .ic{background:var(--accent);color:#3a2400}
+
+/* strip */
+.strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff}
+.strip .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px 24px;flex-wrap:wrap}
+.strip p{font-size:13.5px;color:var(--muted);font-weight:500}
+.strip .marks{display:flex;gap:34px;flex-wrap:wrap;align-items:center;opacity:.75}
+.strip .marks span{font-weight:700;color:var(--muted);font-size:16px}
+
+/* features */
+.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.feature{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px;transition:.2s}
+.feature:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);border-color:transparent}
+.feature .ic{width:52px;height:52px;border-radius:14px;background:var(--brand-50);color:var(--brand-600);display:grid;place-items:center;margin-bottom:18px}
+.feature .ic svg{width:26px;height:26px}
+.feature h3{font-size:19px;margin-bottom:9px}
+.feature p{font-size:14.5px;color:var(--muted)}
+
+/* ===== GALLERY (ảnh phòng lớn) ===== */
+.gallery-sec{background:linear-gradient(180deg,#fff,#F1F5FD)}
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:210px;gap:16px}
+.g-item{position:relative;overflow:hidden;border-radius:18px;cursor:pointer;background:#e2e8f4}
+.g-item img{width:100%;height:100%;object-fit:cover;transition:.5s}
+.g-item:hover img{transform:scale(1.06)}
+.g-item::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(11,26,58,.62));opacity:.85}
+.g-cap{position:absolute;left:16px;right:16px;bottom:14px;z-index:2;color:#fff}
+.g-cap b{display:block;font-size:15.5px;font-weight:600}
+.g-cap span{font-size:12.5px;color:rgba(255,255,255,.85)}
+.g-tall{grid-row:span 2}
+.g-wide{grid-column:span 2}
+.gallery-cta{text-align:center;margin-top:34px}
+
+/* audience */
+.audience{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.aud-card{position:relative;overflow:hidden;border-radius:22px;padding:40px;color:#fff;min-height:280px;display:flex;flex-direction:column;justify-content:flex-end}
+.aud-owner{background:linear-gradient(135deg,var(--brand-700),var(--brand-900))}
+.aud-tenant{background:linear-gradient(135deg,#C9820A,#8A5606)}
+.aud-card>*{position:relative;z-index:1}
+.aud-card .tag{align-self:flex-start;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);padding:6px 13px;border-radius:999px;font-size:12.5px;font-weight:600;margin-bottom:auto}
+.aud-card h3{color:#fff;font-size:26px;margin:20px 0 10px;letter-spacing:-.02em}
+.aud-card p{color:rgba(255,255,255,.9);font-size:15px;margin-bottom:22px;max-width:400px}
+.aud-card .btn-ghost{background:#fff;color:var(--ink)}
+.aud-deco{position:absolute;top:-40px;right:-30px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.08)}
+
+/* listings */
+#phong{background:linear-gradient(180deg,#fff,#F1F5FD)}
+.filters{display:grid;grid-template-columns:repeat(3,1fr) auto;gap:14px;align-items:end}
+.amen-row{margin-top:16px;display:flex;flex-wrap:wrap;gap:9px;align-items:center}
+.amen-row .lbl{font-size:12.5px;font-weight:600;color:var(--body);margin-right:4px}
+.results-head{display:flex;align-items:center;justify-content:space-between;margin:26px 0 18px;flex-wrap:wrap;gap:12px}
+.results-head h3{font-size:20px}.results-head .count{color:var(--muted);font-weight:400;font-size:15px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.map-cta{margin-top:30px;background:linear-gradient(135deg,var(--brand-700),var(--brand-900));border-radius:20px;padding:34px 40px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;color:#fff}
+.map-cta h3{color:#fff;font-size:22px;margin-bottom:6px}
+.map-cta p{color:rgba(255,255,255,.85);font-size:15px;max-width:520px}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.step .num{width:44px;height:44px;border-radius:12px;background:var(--brand-600);color:#fff;display:grid;place-items:center;font-weight:800;font-size:19px;margin-bottom:16px;box-shadow:0 6px 16px rgba(30,58,138,.3)}
+.step h4{font-size:17px;margin-bottom:7px}.step p{font-size:14px;color:var(--muted)}
+
+/* quotes */
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.quote{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+.quote .stars{color:var(--accent);font-size:15px;letter-spacing:2px;margin-bottom:12px}
+.quote p{font-size:15px;color:var(--body);margin-bottom:18px}
+.quote .who{display:flex;align-items:center;gap:12px}
+.quote .av{width:42px;height:42px;border-radius:50%;background:var(--brand-100);color:var(--brand-700);display:grid;place-items:center;font-weight:700}
+.quote .who b{display:block;font-size:14.5px;color:var(--ink)}.quote .who span{font-size:12.5px;color:var(--muted)}
+
+/* cta banner */
+.cta-banner{background:linear-gradient(135deg,var(--brand-700),var(--brand-900));border-radius:26px;padding:56px;text-align:center;color:#fff;position:relative;overflow:hidden}
+.cta-banner h2{color:#fff;font-size:clamp(26px,3.4vw,36px);margin-bottom:14px;letter-spacing:-.02em}
+.cta-banner p{color:rgba(255,255,255,.86);font-size:17px;max-width:520px;margin:0 auto 28px}
+.cta-banner .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.cta-banner .glow{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(79,121,224,.4),transparent 70%);top:-100px;right:-60px}
+
+/* detail modal internals */
+#detailContent .d-img{width:100%;height:340px;object-fit:cover}
+.d-pad{padding:26px 30px 30px}
+.d-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap}
+.d-head h3{font-size:24px;letter-spacing:-.01em}
+.d-head .d-loc{color:var(--muted);font-size:14.5px;margin-top:6px}
+.d-price{font-size:26px;font-weight:800;color:var(--brand-600);white-space:nowrap}
+.d-price small{font-size:14px;color:var(--muted);font-weight:500}
+.d-stats{display:flex;gap:26px;flex-wrap:wrap;margin:22px 0;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.d-stats .s b{display:block;font-size:18px;color:var(--ink)}.d-stats .s span{font-size:13px;color:var(--muted)}
+.d-sec h4{font-size:16px;margin:20px 0 12px}
+.d-amens{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.d-amens .a{display:flex;align-items:center;gap:9px;font-size:14.5px;color:var(--body)}
+.d-amens .a svg{width:18px;height:18px;color:var(--brand-600)}
+.d-actions{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+
+/* owner form modal */
+.form-modal .modal-box{max-width:560px}
+.form-pad{padding:30px}
+.form-pad h3{font-size:23px;margin-bottom:6px}.form-pad>p{color:var(--muted);font-size:14.5px;margin-bottom:22px}
+.form-ok{display:none;text-align:center;padding:20px 0}.form-ok.show{display:block}
+.form-ok .check{width:64px;height:64px;border-radius:50%;background:var(--brand-50);color:var(--brand-600);display:grid;place-items:center;margin:0 auto 18px}
+.form-ok h3{margin-bottom:8px}.form-ok p{color:var(--muted);font-size:14.5px}
+
+@media(max-width:960px){
+  .hero-inner{grid-template-columns:1fr;gap:40px}.hero-visual{order:-1}.hero-card img{height:300px}
+  .feature-grid,.quotes{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr 1fr}
+  .grid3{grid-template-columns:1fr 1fr}.gallery{grid-template-columns:repeat(2,1fr)}
+  .g-wide,.g-tall{grid-column:auto;grid-row:auto}.filters{grid-template-columns:1fr 1fr}
+}
+@media(max-width:620px){
+  .nav-cta .btn-ghost{display:none}.quick-search{grid-template-columns:1fr}
+  .feature-grid,.quotes,.steps,.audience,.grid3,.filters,.d-amens,.form-row{grid-template-columns:1fr}
+  .gallery{grid-template-columns:1fr;grid-auto-rows:200px}.hero-badge{display:none}.cta-banner{padding:38px 22px}
+}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <a href="funhome.html" class="logo">
+      <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9.5 21v-6h5v6"/></svg></span>
+      Fun<b>home</b>
+    </a>
+    <nav class="nav-links">
+      <a href="#nang-luc">Về chúng tôi</a>
+      <a href="#phong">Phòng cho thuê</a>
+      <a href="funhome-map.html">Bản đồ tìm phòng</a>
+      <a href="funhome-tuyendung.html">Tuyển dụng</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="funhome-app.html">Đăng nhập / Đăng phòng</a>
+      <a href="funhome-map.html" class="btn btn-primary">Tìm phòng ngay</a>
+      <button class="burger" onclick="document.querySelector('.nav-links').style.display='flex'"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <span class="eyebrow">🏢 Chuyên cho thuê chung cư mini &amp; phòng trọ</span>
+      <h1>Tìm tổ ấm <span>vừa túi tiền</span> tại Hà Nội</h1>
+      <p class="lead">Funhome là đơn vị cho thuê &amp; quản lý chung cư mini, phòng trọ. Phòng được kiểm định thực tế, giá niêm yết minh bạch, thủ tục nhanh gọn.</p>
+      <div class="quick-search">
+        <div class="qs-field"><label>Khu vực</label><select id="qsArea"><option value="">Tất cả quận</option></select></div>
+        <div class="qs-field"><label>Mức giá</label>
+          <select id="qsPrice"><option value="">Mọi mức giá</option><option value="0-3000000">Dưới 3 triệu</option><option value="3000000-5000000">3 – 5 triệu</option><option value="5000000-8000000">5 – 8 triệu</option><option value="8000000-99000000">Trên 8 triệu</option></select>
+        </div>
+        <a href="#phong" class="btn btn-primary" onclick="applyQuick()" style="align-self:stretch"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>Tìm</a>
+      </div>
+      <div class="hero-actions">
+        <a href="funhome-map.html" class="btn btn-primary btn-lg">Xem phòng trên bản đồ</a>
+        <a href="funhome-app.html" class="btn btn-ghost btn-lg">Tôi là chủ nhà →</a>
+      </div>
+      <div class="hero-trust">
+        <div class="t"><b>500+</b><span>Phòng đang cho thuê</span></div>
+        <div class="t"><b>4.9/5</b><span>Đánh giá khách thuê</span></div>
+        <div class="t"><b>12</b><span>Quận nội thành</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card"><img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=900&q=75" alt="Căn hộ Funhome" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22900%22 height=%22600%22><rect width=%22900%22 height=%22600%22 fill=%22%23dbe5f8%22/><text x=%2250%25%22 y=%2250%25%22 fill=%22%231E3A8A%22 font-family=%22sans-serif%22 font-size=%2244%22 font-weight=%22700%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22>Funhome</text></svg>'"></div>
+      <div class="hero-badge hb1"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Đã kiểm định</b><small>100% phòng thực tế</small></div></div>
+      <div class="hero-badge hb2"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span><div><b>Không phí môi giới</b><small>Giá đúng, rõ ràng</small></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="strip"><div class="wrap"><p>Được tin dùng bởi cộng đồng người thuê &amp; chủ nhà tại Hà Nội</p><div class="marks"><span>◈ FPT</span><span>◈ VinUni</span><span>◈ Shopee</span><span>◈ Techcombank</span><span>◈ NEU</span></div></div></div>
+
+<!-- CAPABILITIES -->
+<section class="section" id="nang-luc">
+  <div class="wrap">
+    <div class="section-head"><span class="eyebrow">Năng lực Funhome</span><h2>Đơn vị cho thuê &amp; quản lý phòng trọ chuyên nghiệp</h2><p>Không chỉ đăng tin — Funhome vận hành trọn gói từ tìm phòng, kiểm định, ký hợp đồng đến chăm sóc trong suốt thời gian ở.</p></div>
+    <div class="feature-grid">
+      <div class="feature"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div><h3>Phòng kiểm định thực tế</h3><p>Mỗi chung cư mini, phòng trọ được đội ngũ Funhome đến khảo sát, chụp ảnh thật, xác minh giấy tờ trước khi lên hệ thống.</p></div>
+      <div class="feature"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><h3>Giá minh bạch, không phí ẩn</h3><p>Niêm yết rõ tiền phòng, điện, nước, dịch vụ. Không phí môi giới, không phát sinh bất ngờ khi ký hợp đồng.</p></div>
+      <div class="feature"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h3>Hợp đồng điện tử nhanh gọn</h3><p>Ký hợp đồng online, thanh toán an toàn, lưu trữ rõ ràng — bảo vệ quyền lợi cả chủ nhà và người thuê.</p></div>
+      <div class="feature"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></div><h3>Quản lý vận hành trọn gói</h3><p>Nhận ủy thác quản lý toà nhà chung cư mini: thu tiền, bảo trì, xử lý sự cố 24/7 để chủ nhà an tâm.</p></div>
+      <div class="feature"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div><h3>Tìm phòng bằng bản đồ</h3><p>Xem vị trí thật trên bản đồ, lọc theo khu vực, giá, tiện nghi — tìm đúng phòng chỉ trong vài phút.</p></div>
+      <div class="feature"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><h3>Hỗ trợ tận tâm 24/7</h3><p>Đội ngũ chăm sóc luôn sẵn sàng: từ hẹn xem phòng, chuyển vào ở đến hỗ trợ trong suốt hợp đồng.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="section gallery-sec" id="khong-gian">
+  <div class="wrap">
+    <div class="section-head"><span class="eyebrow">Không gian sống</span><h2>Ảnh thật những căn phòng tại Funhome</h2><p>Mỗi căn hộ, phòng trọ đều được chụp ảnh thực tế — bạn thấy đúng những gì mình sẽ thuê.</p></div>
+    <div class="gallery">
+      <div class="g-item g-wide g-tall" onclick="openDetail(1)"><img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1000&q=75" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22><rect width=%22600%22 height=%22400%22 fill=%22%23dbe5f8%22/><text x=%2250%25%22 y=%2250%25%22 fill=%22%231E3A8A%22 font-family=%22sans-serif%22 font-size=%2234%22 font-weight=%22700%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22>Funhome</text></svg>'"><div class="g-cap"><b>Chung cư mini Cầu Giấy</b><span>32 m² · Full nội thất · Ban công thoáng</span></div></div>
+      <div class="g-item" onclick="openDetail(8)"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=700&q=75" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22><rect width=%22400%22 height=%22300%22 fill=%22%23dbe5f8%22/></svg>'"><div class="g-cap"><b>Studio view hồ Tây</b><span>40 m²</span></div></div>
+      <div class="g-item" onclick="openDetail(3)"><img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=700&q=75" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22><rect width=%22400%22 height=%22300%22 fill=%22%23dbe5f8%22/></svg>'"><div class="g-cap"><b>Studio cao cấp Nam Từ Liêm</b><span>38 m²</span></div></div>
+      <div class="g-item" onclick="openDetail(6)"><img src="https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&w=700&q=75" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22><rect width=%22400%22 height=%22300%22 fill=%22%23dbe5f8%22/></svg>'"><div class="g-cap"><b>Căn hộ mini 2 người</b><span>35 m²</span></div></div>
+      <div class="g-item g-wide" onclick="openDetail(5)"><img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=900&q=75" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22300%22><rect width=%22600%22 height=%22300%22 fill=%22%23dbe5f8%22/></svg>'"><div class="g-cap"><b>Phòng trọ có gác Hoàng Mai</b><span>22 m² · Ban công · Giờ giấc tự do</span></div></div>
+      <div class="g-item" onclick="openDetail(4)"><img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=700&q=75" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22><rect width=%22400%22 height=%22300%22 fill=%22%23dbe5f8%22/></svg>'"><div class="g-cap"><b>Chung cư mini gần Bách Khoa</b><span>26 m²</span></div></div>
+    </div>
+    <div class="gallery-cta"><a href="funhome-map.html" class="btn btn-primary btn-lg">Xem tất cả phòng trên bản đồ</a></div>
+  </div>
+</section>
+
+<!-- AUDIENCE -->
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="audience">
+      <div class="aud-card aud-owner"><div class="aud-deco"></div><span class="tag">Dành cho chủ nhà</span><h3>Có phòng cần cho thuê?</h3><p>Đăng nhập, đăng phòng miễn phí và tiếp cận hàng nghìn khách thuê tiềm năng. Funhome giúp bạn lấp đầy phòng nhanh và quản lý nhẹ nhàng.</p><a class="btn btn-ghost btn-lg" href="funhome-app.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Đăng nhập &amp; đăng phòng</a></div>
+      <div class="aud-card aud-tenant"><div class="aud-deco"></div><span class="tag">Dành cho người thuê</span><h3>Đang cần tìm phòng?</h3><p>Duyệt hàng trăm phòng đã kiểm định, xem vị trí trên bản đồ, lọc theo giá &amp; tiện nghi, đặt lịch xem phòng chỉ với một chạm.</p><a href="funhome-map.html" class="btn btn-ghost btn-lg"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>Tìm phòng trên bản đồ</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- LISTINGS -->
+<section class="section" id="phong">
+  <div class="wrap">
+    <div class="section-head" style="margin-bottom:32px"><span class="eyebrow">Phòng nổi bật</span><h2>Phòng đang cho thuê</h2><p>Lọc nhanh theo khu vực, loại hình và mức giá. Cần bản đồ &amp; bộ lọc đầy đủ? Sang trang Bản đồ tìm phòng.</p></div>
+    <div class="search-bar">
+      <div class="filters">
+        <div class="field"><label>Khu vực</label><select id="fArea"><option value="">Tất cả quận</option></select></div>
+        <div class="field"><label>Loại hình</label><select id="fType"><option value="">Tất cả loại</option><option>Chung cư mini</option><option>Phòng trọ</option><option>Studio</option></select></div>
+        <div class="field"><label>Mức giá</label><select id="fPrice"><option value="">Mọi mức giá</option><option value="0-3000000">Dưới 3 triệu</option><option value="3000000-5000000">3 – 5 triệu</option><option value="5000000-8000000">5 – 8 triệu</option><option value="8000000-99000000">Trên 8 triệu</option></select></div>
+        <button class="btn btn-ghost" onclick="resetFilters()" style="height:44px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>Đặt lại</button>
+      </div>
+      <div class="amen-row" id="amenRow"><span class="lbl">Tiện nghi:</span></div>
+    </div>
+    <div class="results-head"><h3>Kết quả <span class="count" id="resultCount"></span></h3><a href="funhome-map.html" class="btn btn-ghost">Xem trên bản đồ →</a></div>
+    <div class="grid3" id="listCol"></div>
+    <div class="map-cta">
+      <div><h3>Tìm phòng theo vị trí trên bản đồ</h3><p>Xem toàn bộ phòng trên bản đồ Hà Nội, lọc trực tiếp theo khu vực bạn quan tâm, giá và tiện nghi.</p></div>
+      <a href="funhome-map.html" class="btn btn-accent btn-lg">Mở bản đồ tìm phòng</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section" id="quy-trinh" style="background:#fff">
+  <div class="wrap">
+    <div class="section-head"><span class="eyebrow">Quy trình</span><h2>Thuê phòng chỉ với 4 bước</h2><p>Đơn giản, minh bạch và nhanh chóng — bạn có thể dọn vào ở chỉ trong vài ngày.</p></div>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><h4>Tìm &amp; lọc phòng</h4><p>Chọn khu vực, giá, tiện nghi và xem vị trí thật trên bản đồ.</p></div>
+      <div class="step"><div class="num">2</div><h4>Đặt lịch xem phòng</h4><p>Chốt lịch online, Funhome dẫn bạn đi xem tận nơi.</p></div>
+      <div class="step"><div class="num">3</div><h4>Ký hợp đồng</h4><p>Hợp đồng điện tử rõ ràng, thanh toán an toàn, minh bạch.</p></div>
+      <div class="step"><div class="num">4</div><h4>Dọn vào &amp; tận hưởng</h4><p>Nhận phòng và được hỗ trợ 24/7 suốt thời gian ở.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section" id="danh-gia">
+  <div class="wrap">
+    <div class="section-head"><span class="eyebrow">Khách hàng nói gì</span><h2>Được yêu thích bởi người thuê &amp; chủ nhà</h2></div>
+    <div class="quotes">
+      <div class="quote"><div class="stars">★★★★★</div><p>"Phòng đúng như ảnh, giá minh bạch không phí môi giới. Bản đồ tìm phòng cực tiện, mình chốt được phòng gần công ty chỉ trong 2 ngày."</p><div class="who"><div class="av">M</div><div><b>Minh Anh</b><span>Nhân viên văn phòng, Cầu Giấy</span></div></div></div>
+      <div class="quote"><div class="stars">★★★★★</div><p>"Mình có 3 phòng cho thuê, giao cho Funhome quản lý là nhẹ hẳn. Lấp đầy phòng nhanh, thu tiền và bảo trì đều được lo hết."</p><div class="who"><div class="av">T</div><div><b>Anh Tuấn</b><span>Chủ nhà, Thanh Xuân</span></div></div></div>
+      <div class="quote"><div class="stars">★★★★★</div><p>"Sinh viên tỉnh lẻ lên Hà Nội, mình lo nhất bị lừa. Funhome kiểm định phòng thật nên rất yên tâm, thủ tục cũng nhanh gọn."</p><div class="who"><div class="av">H</div><div><b>Thu Hà</b><span>Sinh viên NEU, Hai Bà Trưng</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="cta-banner"><div class="glow"></div><h2>Sẵn sàng tìm tổ ấm mới?</h2><p>Dù bạn đang tìm phòng hay có phòng cần cho thuê, Funhome luôn đồng hành cùng bạn.</p><div class="btns"><a href="funhome-map.html" class="btn btn-accent btn-lg">Tìm phòng ngay</a><a href="funhome-app.html" class="btn btn-ghost btn-lg">Đăng nhập &amp; đăng phòng</a></div></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="funhome.html" class="logo"><span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9.5 21v-6h5v6"/></svg></span>Fun<b style="color:var(--brand-400)">home</b></a>
+        <p>Đơn vị cho thuê &amp; quản lý chung cư mini, phòng trọ chất lượng tại Hà Nội. Minh bạch – tiện nghi – tận tâm.</p>
+        <div class="foot-social">
+          <a href="#" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.5 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg></a>
+          <a href="#" aria-label="Zalo"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6 2 11c0 2.7 1.4 5.1 3.6 6.7-.1.9-.5 2.2-1.4 3.3 1.6-.3 3-1 4-1.7 1.2.4 2.5.7 3.8.7 5.5 0 10-4 10-9s-4.5-9-10-9z"/></svg></a>
+          <a href="#" aria-label="Youtube"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.3-.4-4.8c-.2-.9-.9-1.5-1.7-1.7C19.3 5 12 5 12 5s-7.3 0-8.9.5c-.8.2-1.5.8-1.7 1.7C1 8.7 1 12 1 12s0 3.3.4 4.8c.2.9.9 1.5 1.7 1.7 1.6.5 8.9.5 8.9.5s7.3 0 8.9-.5c.8-.2 1.5-.8 1.7-1.7.4-1.5.4-4.8.4-4.8zM9.8 15V9l5.2 3-5.2 3z"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-col"><h4>Khám phá</h4><a href="funhome-map.html">Bản đồ tìm phòng</a><a href="#phong">Phòng cho thuê</a><a href="#nang-luc">Về Funhome</a><a href="#quy-trinh">Quy trình thuê</a></div>
+      <div class="foot-col"><h4>Chủ nhà &amp; NV</h4><a href="funhome-app.html">Đăng nhập / Đăng phòng</a><a href="funhome-tuyendung.html">Tuyển dụng</a><a href="#">Ủy thác quản lý</a><a href="#">Bảng giá dịch vụ</a></div>
+      <div class="foot-col"><h4>Liên hệ</h4><a href="tel:19001234">☎ 1900 1234</a><a href="mailto:hello@funhome.vn">✉ hello@funhome.vn</a><a href="#">📍 Cầu Giấy, Hà Nội</a><a href="#">🕘 8:00 – 21:00 hằng ngày</a></div>
+    </div>
+    <div class="foot-bottom"><span>© 2026 Funhome. Bảo lưu mọi quyền.</span><span>Điều khoản · Chính sách bảo mật · Quy chế hoạt động</span></div>
+  </div>
+</footer>
+
+<!-- DETAIL MODAL -->
+<div class="modal" id="detailModal"><div class="modal-bg" onclick="closeModal('detailModal')"></div><div class="modal-box"><button class="modal-close" onclick="closeModal('detailModal')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button><div id="detailContent"></div></div></div>
+
+<script src="funhome-data.js"></script>
+<script>
+let state={area:"",type:"",price:"",amenities:[]};
+function getFiltered(){
+  return ROOMS.filter(r=>{
+    if(state.area&&r.district!==state.area)return false;
+    if(state.type&&r.type!==state.type)return false;
+    if(state.price){const [lo,hi]=state.price.split('-').map(Number);if(r.price<lo||r.price>hi)return false;}
+    if(state.amenities.length&&!state.amenities.every(a=>r.amenities.includes(a)))return false;
+    return true;
+  });
+}
+function renderList(){
+  state.area=document.getElementById('fArea').value;
+  state.type=document.getElementById('fType').value;
+  state.price=document.getElementById('fPrice').value;
+  const list=getFiltered();
+  document.getElementById('resultCount').textContent=`· ${list.length} phòng`;
+  const col=document.getElementById('listCol');
+  col.innerHTML=list.length?list.map(cardHTML).join(""):`<div class="no-results"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><h3 style="margin-bottom:6px">Không tìm thấy phòng phù hợp</h3><p>Thử nới lỏng bộ lọc hoặc <a href="#" onclick="resetFilters();return false" style="color:var(--brand-600);font-weight:600">đặt lại tất cả</a>.</p></div>`;
+}
+function resetFilters(){state={area:"",type:"",price:"",amenities:[]};['fArea','fType','fPrice'].forEach(id=>document.getElementById(id).value="");document.querySelectorAll('#amenRow .chip').forEach(c=>c.classList.remove('on'));renderList();}
+function applyQuick(){document.getElementById('fArea').value=document.getElementById('qsArea').value;document.getElementById('fPrice').value=document.getElementById('qsPrice').value;renderList();}
+['fArea','fType','fPrice'].forEach(id=>document.getElementById(id).addEventListener('change',renderList));
+function start(){fillAreaSelects(['fArea','qsArea']);buildAmenChips('amenRow',renderList,state.amenities);renderList();}
+loadRooms(start);
+</script>
+</body>
+</html>

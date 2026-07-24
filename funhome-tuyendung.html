@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tuyển dụng — Funhome</title>
+<meta name="description" content="Cơ hội nghề nghiệp tại Funhome — đơn vị cho thuê & quản lý chung cư mini, phòng trọ. Ứng tuyển ngay các vị trí đang mở." />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="funhome-theme.css">
+<style>
+.subbar{background:var(--brand-50);border-bottom:1px solid var(--brand-100)}
+.subbar .wrap{display:flex;align-items:center;gap:8px;padding:9px 24px;font-size:13px;color:var(--brand-700)}
+.subbar b{font-weight:600}
+.j-hero{background:radial-gradient(900px 460px at 85% -10%,rgba(43,87,196,.16),transparent 60%),linear-gradient(180deg,#FbFcFe,#F6F8FC);padding:66px 0}
+.j-hero .eyebrow{margin-bottom:16px}
+.j-hero h1{font-size:clamp(32px,4.6vw,50px);letter-spacing:-.03em;max-width:720px;line-height:1.08}
+.j-hero h1 span{color:var(--brand-600)}
+.j-hero p{font-size:18px;color:var(--body);max-width:600px;margin:20px 0 30px}
+.j-stats{display:flex;gap:40px;flex-wrap:wrap;margin-top:36px}
+.j-stats .s b{font-size:30px;color:var(--brand-600);font-weight:800;display:block;letter-spacing:-.02em}
+.j-stats .s span{font-size:14px;color:var(--muted)}
+/* benefits */
+.perks{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.perk{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px;transition:.2s}
+.perk:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);border-color:transparent}
+.perk .ic{width:48px;height:48px;border-radius:13px;background:var(--brand-50);color:var(--brand-600);display:grid;place-items:center;margin-bottom:16px}
+.perk .ic svg{width:24px;height:24px}
+.perk h3{font-size:17px;margin-bottom:8px}.perk p{font-size:14px;color:var(--muted)}
+/* jobs */
+.jobs{display:flex;flex-direction:column;gap:16px;max-width:900px;margin:0 auto}
+.job{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px 26px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;transition:.2s}
+.job:hover{box-shadow:var(--shadow-md);border-color:transparent}
+.job .ji{flex:1;min-width:220px}
+.job h3{font-size:18px;margin-bottom:8px}
+.job .tags{display:flex;gap:8px;flex-wrap:wrap}
+.job .tag{font-size:12.5px;font-weight:500;color:var(--brand-700);background:var(--brand-50);border:1px solid var(--brand-100);padding:4px 11px;border-radius:999px}
+.job .tag.dept{background:var(--accent-soft);color:var(--accent-600);border-color:#F7DBA7}
+.job .sal{font-weight:700;color:var(--ink);font-size:15px;white-space:nowrap}
+/* apply */
+.apply-sec{background:linear-gradient(180deg,#fff,#F1F5FD)}
+.apply-wrap{max-width:620px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow-md);padding:34px}
+.apply-wrap h3{font-size:22px;margin-bottom:6px}.apply-wrap>p{color:var(--muted);font-size:14.5px;margin-bottom:22px}
+.form-ok{display:none;text-align:center;padding:14px 0}.form-ok.show{display:block}
+.form-ok .check{width:62px;height:62px;border-radius:50%;background:var(--brand-50);color:var(--brand-600);display:grid;place-items:center;margin:0 auto 16px}
+.form-ok h3{margin-bottom:8px}
+@media(max-width:960px){.perks{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.perks{grid-template-columns:1fr}.job{align-items:flex-start}.nav-cta .btn-ghost{display:none}.form-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <a href="funhome.html" class="logo"><span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9.5 21v-6h5v6"/></svg></span>Fun<b>home</b></a>
+    <nav class="nav-links"><a href="funhome.html">Trang chủ</a><a href="funhome-map.html">Bản đồ tìm phòng</a><a href="funhome-tuyendung.html">Tuyển dụng</a><a href="#vitri">Vị trí đang mở</a></nav>
+    <div class="nav-cta"><a class="btn btn-ghost" href="funhome-app.html">Đăng nhập</a><a href="#apply" class="btn btn-primary">Ứng tuyển ngay</a></div>
+  </div>
+</header>
+
+<div class="subbar"><div class="wrap">🌐 <b>tuyendung.funhome.vn</b> · Tuyển dụng &amp; cơ hội nghề nghiệp</div></div>
+
+<!-- HERO -->
+<section class="j-hero">
+  <div class="wrap">
+    <span class="eyebrow">Gia nhập Funhome</span>
+    <h1>Cùng Funhome kiến tạo <span>chỗ ở tử tế</span> cho người trẻ</h1>
+    <p>Chúng tôi đang phát triển nhanh và tìm kiếm những con người tận tâm, chủ động để cùng xây dựng đơn vị cho thuê chung cư mini, phòng trọ minh bạch nhất Hà Nội.</p>
+    <div style="display:flex;gap:14px;flex-wrap:wrap"><a href="#vitri" class="btn btn-primary btn-lg">Xem vị trí đang mở</a><a href="#apply" class="btn btn-ghost btn-lg">Gửi CV ứng tuyển</a></div>
+    <div class="j-stats"><div class="s"><b>40+</b><span>Thành viên</span></div><div class="s"><b>6</b><span>Vị trí đang mở</span></div><div class="s"><b>4.8/5</b><span>Mức độ hài lòng nội bộ</span></div><div class="s"><b>2×</b><span>Tăng trưởng mỗi năm</span></div></div>
+  </div>
+</section>
+
+<!-- PERKS -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head"><span class="eyebrow">Vì sao chọn Funhome</span><h2>Môi trường để bạn phát triển</h2></div>
+    <div class="perks">
+      <div class="perk"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><h3>Thu nhập cạnh tranh</h3><p>Lương cứng + thưởng theo hiệu suất rõ ràng, review 6 tháng/lần, thưởng lễ Tết đầy đủ.</p></div>
+      <div class="perk"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><h3>BHXH &amp; phúc lợi</h3><p>Đóng BHXH đầy đủ, khám sức khỏe định kỳ, chính sách nghỉ phép linh hoạt.</p></div>
+      <div class="perk"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10M18 20V4M6 20v-4"/></svg></div><h3>Lộ trình thăng tiến</h3><p>Đào tạo bài bản, cơ hội lên quản lý khu vực khi công ty mở rộng nhanh.</p></div>
+      <div class="perk"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div><h3>Đội ngũ trẻ, năng động</h3><p>Văn hóa cởi mở, tôn trọng ý kiến, làm thật – chơi thật, team building thường xuyên.</p></div>
+      <div class="perk"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></div><h3>Hỗ trợ chỗ ở</h3><p>Ưu đãi thuê phòng trong hệ thống Funhome cho nhân viên ở xa.</p></div>
+      <div class="perk"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></svg></div><h3>Công cụ hiện đại</h3><p>Làm việc với phần mềm quản lý riêng, quy trình số hóa, giảm việc thủ công.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- JOBS -->
+<section class="section" id="vitri" style="background:#fff">
+  <div class="wrap">
+    <div class="section-head"><span class="eyebrow">Vị trí đang mở</span><h2>Cơ hội đang chờ bạn</h2><p>Nhấn “Ứng tuyển” để điền form — đội ngũ nhân sự sẽ phản hồi trong 3 ngày làm việc.</p></div>
+    <div class="jobs" id="jobList"></div>
+  </div>
+</section>
+
+<!-- APPLY -->
+<section class="section apply-sec" id="apply">
+  <div class="wrap">
+    <div class="section-head"><span class="eyebrow">Ứng tuyển</span><h2>Gửi hồ sơ cho Funhome</h2></div>
+    <div class="apply-wrap">
+      <div id="applyForm">
+        <h3>Thông tin ứng viên</h3>
+        <p>Điền thông tin bên dưới, đính kèm CV nếu có. Chúng tôi sẽ liên hệ sớm nhất.</p>
+        <div class="form-row"><div class="form-group"><label>Họ và tên</label><input type="text" placeholder="Nguyễn Văn A"></div><div class="form-group"><label>Số điện thoại</label><input type="tel" placeholder="09xx xxx xxx"></div></div>
+        <div class="form-row"><div class="form-group"><label>Email</label><input type="email" placeholder="ban@email.com"></div>
+          <div class="form-group"><label>Vị trí ứng tuyển</label><select id="applyPos"></select></div></div>
+        <div class="form-group"><label>Link CV (Google Drive / LinkedIn)</label><input type="url" placeholder="https://..."></div>
+        <div class="form-group"><label>Giới thiệu ngắn về bạn</label><textarea rows="3" placeholder="Kinh nghiệm, điểm mạnh, vì sao muốn gia nhập Funhome…"></textarea></div>
+        <button class="btn btn-primary btn-block btn-lg" onclick="submitApply()">Gửi hồ sơ ứng tuyển</button>
+      </div>
+      <div class="form-ok" id="applyOk">
+        <div class="check"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+        <h3>Đã nhận hồ sơ!</h3>
+        <p>Cảm ơn bạn đã quan tâm tới Funhome. Đội ngũ nhân sự sẽ liên hệ trong 3 ngày làm việc.</p>
+        <button class="btn btn-ghost" style="margin-top:18px" onclick="location.reload()">Ứng tuyển vị trí khác</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand"><a href="funhome.html" class="logo"><span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9.5 21v-6h5v6"/></svg></span>Fun<b style="color:var(--brand-400)">home</b></a><p>Đơn vị cho thuê &amp; quản lý chung cư mini, phòng trọ chất lượng tại Hà Nội.</p></div>
+      <div class="foot-col"><h4>Khám phá</h4><a href="funhome.html">Trang chủ</a><a href="funhome-map.html">Bản đồ tìm phòng</a><a href="funhome.html#nang-luc">Về Funhome</a></div>
+      <div class="foot-col"><h4>Tuyển dụng</h4><a href="#vitri">Vị trí đang mở</a><a href="#apply">Ứng tuyển</a><a href="funhome-app.html">Đăng nhập nội bộ</a></div>
+      <div class="foot-col"><h4>Liên hệ</h4><a href="tel:19001234">☎ 1900 1234</a><a href="mailto:tuyendung@funhome.vn">✉ tuyendung@funhome.vn</a><a href="#">📍 Cầu Giấy, Hà Nội</a></div>
+    </div>
+    <div class="foot-bottom"><span>© 2026 Funhome. Bảo lưu mọi quyền.</span><span>Điều khoản · Chính sách bảo mật</span></div>
+  </div>
+</footer>
+
+<script>
+const JOBS=[
+  {title:"Nhân viên kinh doanh cho thuê",dept:"Kinh doanh",type:"Full-time",loc:"Cầu Giấy, HN",sal:"10 – 20 triệu"},
+  {title:"Chuyên viên quản lý toà nhà",dept:"Vận hành",type:"Full-time",loc:"Toàn Hà Nội",sal:"9 – 14 triệu"},
+  {title:"Nhân viên chăm sóc khách thuê",dept:"CSKH",type:"Full-time",loc:"Cầu Giấy, HN",sal:"8 – 12 triệu"},
+  {title:"Cộng tác viên tìm phòng",dept:"Kinh doanh",type:"Part-time",loc:"Linh hoạt",sal:"Hoa hồng hấp dẫn"},
+  {title:"Nhân viên Marketing",dept:"Marketing",type:"Full-time",loc:"Cầu Giấy, HN",sal:"10 – 16 triệu"},
+  {title:"Kỹ thuật viên bảo trì",dept:"Vận hành",type:"Full-time",loc:"Toàn Hà Nội",sal:"9 – 13 triệu"}
+];
+function renderJobs(){
+  document.getElementById('jobList').innerHTML=JOBS.map((j,i)=>`
+    <div class="job">
+      <div class="ji"><h3>${j.title}</h3><div class="tags"><span class="tag dept">${j.dept}</span><span class="tag">${j.type}</span><span class="tag">📍 ${j.loc}</span></div></div>
+      <div class="sal">${j.sal}</div>
+      <a href="#apply" class="btn btn-primary" onclick="pickJob(${i})">Ứng tuyển</a>
+    </div>`).join("");
+  document.getElementById('applyPos').innerHTML=JOBS.map(j=>`<option>${j.title}</option>`).join("");
+}
+function pickJob(i){document.getElementById('applyPos').selectedIndex=i;}
+function submitApply(){document.getElementById('applyForm').style.display='none';document.getElementById('applyOk').classList.add('show');window.scrollTo({top:document.getElementById('apply').offsetTop-80,behavior:'smooth'});}
+renderJobs();
+</script>
+</body>
+</html>

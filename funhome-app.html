@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Đăng nhập &amp; Quản lý phòng — Funhome</title>
+<meta name="description" content="Cổng đăng nhập cho chủ nhà & nhân viên Funhome — đăng phòng, quản lý tin cho thuê chung cư mini, phòng trọ." />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="funhome-theme.css">
+<style>
+.subbar{background:var(--brand-50);border-bottom:1px solid var(--brand-100)}
+.subbar .wrap{display:flex;align-items:center;gap:8px;padding:9px 24px;font-size:13px;color:var(--brand-700)}.subbar b{font-weight:600}
+
+/* LOGIN */
+.login-wrap{min-height:calc(100vh - 111px);display:grid;grid-template-columns:1.05fr .95fr}
+.login-side{background:linear-gradient(150deg,var(--brand-700),var(--brand-900));color:#fff;padding:60px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.login-side .glow{position:absolute;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(79,121,224,.35),transparent 70%);top:-80px;right:-80px}
+.login-side .eyebrow{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.2);margin-bottom:22px;position:relative}
+.login-side h2{color:#fff;font-size:34px;letter-spacing:-.02em;line-height:1.15;position:relative}
+.login-side p{color:rgba(255,255,255,.85);font-size:16px;margin-top:16px;max-width:400px;position:relative}
+.login-side ul{list-style:none;margin-top:28px;position:relative}
+.login-side li{display:flex;align-items:center;gap:12px;margin-bottom:14px;font-size:15px;color:rgba(255,255,255,.92)}
+.login-side li svg{width:20px;height:20px;color:var(--accent);flex-shrink:0}
+.login-main{display:flex;align-items:center;justify-content:center;padding:40px}
+.login-card{width:100%;max-width:400px}
+.login-card h1{font-size:26px;margin-bottom:6px}.login-card>p{color:var(--muted);font-size:14.5px;margin-bottom:24px}
+.tabs{display:flex;gap:6px;background:var(--brand-50);border-radius:12px;padding:5px;margin-bottom:22px}
+.tabs button{flex:1;padding:10px;border-radius:9px;font-weight:600;font-size:14px;color:var(--muted)}
+.tabs button.on{background:#fff;color:var(--brand-700);box-shadow:var(--shadow-sm)}
+.demo-hint{background:var(--accent-soft);border:1px solid #F7DBA7;border-radius:11px;padding:11px 14px;font-size:12.5px;color:var(--accent-600);margin-bottom:18px}
+.login-err{display:none;background:#FEECEC;border:1px solid #F6C9C9;color:#C0392B;border-radius:10px;padding:10px 13px;font-size:13px;margin-bottom:14px}
+.login-err.show{display:block}
+
+/* DASHBOARD */
+.dash{display:none}.dash.show{display:block}
+.dash-top{background:#fff;border-bottom:1px solid var(--line)}
+.dash-top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.dash-user{display:flex;align-items:center;gap:12px}
+.dash-user .av{width:38px;height:38px;border-radius:50%;background:var(--brand-100);color:var(--brand-700);display:grid;place-items:center;font-weight:700}
+.dash-user b{font-size:14.5px;color:var(--ink);display:block}.dash-user span{font-size:12.5px;color:var(--muted)}
+.dash-body{padding:32px 0 70px}
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:28px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+.stat .ic{width:42px;height:42px;border-radius:11px;background:var(--brand-50);color:var(--brand-600);display:grid;place-items:center;margin-bottom:14px}
+.stat b{font-size:26px;color:var(--ink);letter-spacing:-.02em}.stat span{font-size:13.5px;color:var(--muted);display:block}
+.panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.panel-head{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--line);flex-wrap:wrap;gap:12px}
+.panel-head h3{font-size:18px}
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);padding:13px 24px;border-bottom:1px solid var(--line);font-weight:600}
+.tbl td{padding:14px 24px;border-bottom:1px solid var(--line);font-size:14px;color:var(--body);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}
+.tbl .rt{display:flex;align-items:center;gap:12px}
+.tbl .rt img{width:52px;height:40px;object-fit:cover;border-radius:8px;background:#e2e8f4}
+.tbl .rt b{color:var(--ink);font-size:14px;display:block}
+.tbl .rt span{font-size:12.5px;color:var(--muted)}
+.badge{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px}
+.badge.on{background:#E6F6EE;color:#1E8E5A}
+.badge.off{background:#FDECEC;color:#C0392B}
+.pill{font-size:12.5px;color:var(--brand-700);background:var(--brand-50);border:1px solid var(--brand-100);padding:3px 10px;border-radius:999px}
+.icon-btn{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);display:grid;place-items:center;color:var(--muted)}
+.icon-btn:hover{border-color:#F6C9C9;color:#C0392B}
+.new-row{background:var(--brand-50)!important;animation:flash 1.4s ease}
+@keyframes flash{0%{background:#DBEAFE}100%{background:var(--brand-50)}}
+/* add-room modal */
+.form-modal .modal-box{max-width:640px}
+.form-pad{padding:30px}.form-pad h3{font-size:22px;margin-bottom:4px}.form-pad>p{color:var(--muted);font-size:14px;margin-bottom:20px}
+.amen-pick{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+@media(max-width:860px){.login-wrap{grid-template-columns:1fr}.login-side{display:none}.stat-row{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.stat-row{grid-template-columns:1fr 1fr}.tbl .hide-sm{display:none}.form-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <a href="funhome.html" class="logo"><span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9.5 21v-6h5v6"/></svg></span>Fun<b>home</b></a>
+    <nav class="nav-links"><a href="funhome.html">Trang chủ</a><a href="funhome-map.html">Bản đồ tìm phòng</a><a href="funhome-tuyendung.html">Tuyển dụng</a></nav>
+    <div class="nav-cta"><a href="funhome.html" class="btn btn-ghost">Về trang chủ</a></div>
+  </div>
+</header>
+
+<div class="subbar"><div class="wrap">🌐 <b>quanly.funhome.vn</b> · Cổng đăng nhập &amp; quản lý phòng</div></div>
+
+<!-- ===== LOGIN VIEW ===== -->
+<div id="loginView">
+  <div class="login-wrap">
+    <div class="login-side">
+      <div class="glow"></div>
+      <span class="eyebrow">Funhome Partner</span>
+      <h2>Quản lý phòng cho thuê thật đơn giản</h2>
+      <p>Đăng nhập để đăng phòng mới, cập nhật giá, theo dõi tin cho thuê và lượt quan tâm — tất cả trong một nơi.</p>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Đăng phòng miễn phí, duyệt nhanh trong 24h</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Theo dõi lượt xem &amp; liên hệ theo thời gian thực</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Đồng bộ dữ liệu với bảng hàng Google Sheet</li>
+      </ul>
+    </div>
+    <div class="login-main">
+      <div class="login-card">
+        <h1>Đăng nhập</h1>
+        <p>Dành cho chủ nhà &amp; nhân viên Funhome.</p>
+        <div class="tabs"><button class="on" id="tabLogin" onclick="switchTab('login')">Đăng nhập</button><button id="tabReg" onclick="switchTab('reg')">Đăng ký chủ nhà</button></div>
+        <div class="demo-hint">Bản demo — đăng nhập thử với email <b>demo@funhome.vn</b> / mật khẩu <b>funhome</b>, hoặc bấm thẳng “Đăng nhập”.</div>
+        <div class="login-err" id="loginErr">Email hoặc mật khẩu chưa đúng. Thử lại nhé.</div>
+        <div id="regNameGrp" class="form-group" style="display:none"><label>Họ và tên</label><input type="text" id="regName" placeholder="Nguyễn Văn A"></div>
+        <div class="form-group"><label>Email</label><input type="email" id="loginEmail" placeholder="ban@funhome.vn" value="demo@funhome.vn"></div>
+        <div class="form-group"><label>Mật khẩu</label><input type="password" id="loginPass" placeholder="••••••••" value="funhome"></div>
+        <button class="btn btn-primary btn-block btn-lg" onclick="doLogin()" id="loginBtn">Đăng nhập</button>
+        <p style="text-align:center;font-size:13px;color:var(--muted);margin-top:16px">Quên mật khẩu? <a href="#" style="color:var(--brand-600);font-weight:600">Khôi phục</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== DASHBOARD VIEW ===== -->
+<div class="dash" id="dashView">
+  <div class="dash-top"><div class="wrap">
+    <div style="font-weight:700;color:var(--ink);font-size:16px">Bảng điều khiển</div>
+    <div class="dash-user"><div class="av" id="userAv">D</div><div><b id="userName">Chủ nhà Demo</b><span id="userMail">demo@funhome.vn</span></div><button class="btn btn-ghost" style="padding:9px 16px;margin-left:8px" onclick="logout()">Đăng xuất</button></div>
+  </div></div>
+
+  <div class="dash-body">
+    <div class="wrap">
+      <div class="stat-row">
+        <div class="stat"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div><b id="stTotal">0</b><span>Tổng số phòng</span></div>
+        <div class="stat"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg></div><b id="stActive">0</b><span>Đang cho thuê</span></div>
+        <div class="stat"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div><b id="stViews">1.284</b><span>Lượt xem tháng này</span></div>
+        <div class="stat"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><b id="stLeads">37</b><span>Liên hệ mới</span></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h3>Phòng của tôi</h3>
+          <button class="btn btn-primary" onclick="openAdd()"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Thêm phòng mới</button>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="tbl">
+            <thead><tr><th>Phòng</th><th class="hide-sm">Loại</th><th>Giá/tháng</th><th class="hide-sm">Khu vực</th><th>Trạng thái</th><th></th></tr></thead>
+            <tbody id="roomRows"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADD ROOM MODAL -->
+<div class="modal form-modal" id="addModal">
+  <div class="modal-bg" onclick="closeModal('addModal')"></div>
+  <div class="modal-box"><button class="modal-close" onclick="closeModal('addModal')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <div class="form-pad">
+      <h3>Thêm phòng cho thuê</h3>
+      <p>Điền thông tin phòng. Phòng sẽ hiển thị ngay trong danh sách quản lý của bạn.</p>
+      <div class="form-group"><label>Tiêu đề phòng</label><input type="text" id="aTitle" placeholder="VD: Chung cư mini full nội thất, ban công thoáng"></div>
+      <div class="form-row">
+        <div class="form-group"><label>Loại hình</label><select id="aType"><option>Chung cư mini</option><option>Phòng trọ</option><option>Studio</option></select></div>
+        <div class="form-group"><label>Khu vực (quận)</label><select id="aArea"></select></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Giá thuê (đ/tháng)</label><input type="number" id="aPrice" placeholder="4500000"></div>
+        <div class="form-group"><label>Diện tích (m²)</label><input type="number" id="aArea2" placeholder="28"></div>
+      </div>
+      <div class="form-group"><label>Địa chỉ</label><input type="text" id="aAddr" placeholder="Số nhà, ngõ, đường…"></div>
+      <div class="form-group"><label>Link ảnh (tùy chọn)</label><input type="url" id="aImg" placeholder="https://..."></div>
+      <div class="form-group"><label>Tiện nghi</label><div class="amen-pick" id="aAmen"></div></div>
+      <div class="form-group"><label>Mô tả</label><textarea rows="2" id="aNote" placeholder="Mô tả ngắn về phòng…"></textarea></div>
+      <button class="btn btn-primary btn-block btn-lg" onclick="addRoom()">Đăng phòng</button>
+    </div>
+  </div>
+</div>
+
+<script src="funhome-data.js"></script>
+<script>
+let session=null, addAmen=[];
+
+/* LOGIN */
+function switchTab(t){
+  const login=t==='login';
+  document.getElementById('tabLogin').classList.toggle('on',login);
+  document.getElementById('tabReg').classList.toggle('on',!login);
+  document.getElementById('regNameGrp').style.display=login?'none':'flex';
+  document.getElementById('loginBtn').textContent=login?'Đăng nhập':'Tạo tài khoản chủ nhà';
+  document.getElementById('loginErr').classList.remove('show');
+}
+function doLogin(){
+  const email=document.getElementById('loginEmail').value.trim();
+  const pass=document.getElementById('loginPass').value;
+  const reg=document.getElementById('tabReg').classList.contains('on');
+  // demo: chấp nhận demo@funhome.vn/funhome, hoặc bất kỳ email hợp lệ khi đăng ký
+  const ok = reg ? (email.includes('@')) : ((email==='demo@funhome.vn'&&pass==='funhome')||(email.includes('@')&&pass.length>=6));
+  if(!ok){document.getElementById('loginErr').classList.add('show');return;}
+  const name = reg ? (document.getElementById('regName').value||'Chủ nhà mới') : (email==='demo@funhome.vn'?'Chủ nhà Demo':email.split('@')[0]);
+  session={email,name};
+  document.getElementById('userName').textContent=name;
+  document.getElementById('userMail').textContent=email;
+  document.getElementById('userAv').textContent=name.charAt(0).toUpperCase();
+  document.getElementById('loginView').style.display='none';
+  document.getElementById('dashView').classList.add('show');
+  renderRooms();
+}
+function logout(){session=null;document.getElementById('dashView').classList.remove('show');document.getElementById('loginView').style.display='block';window.scrollTo(0,0);}
+
+/* DASHBOARD */
+function renderRooms(){
+  const rows=ROOMS.map(r=>`
+    <tr data-id="${r.id}">
+      <td><div class="rt"><img src="${r.image}" onerror="fhImg(this)"><div><b>${r.title}</b><span>${r.area} m² · ${r.beds} PN</span></div></div></td>
+      <td class="hide-sm"><span class="pill">${r.type}</span></td>
+      <td style="font-weight:700;color:var(--brand-600)">${fmtPrice(r.price)}</td>
+      <td class="hide-sm">${r.district}</td>
+      <td><span class="badge ${r.status==='off'?'off':'on'}">${r.status==='off'?'Đã cho thuê':'Đang trống'}</span></td>
+      <td><button class="icon-btn" title="Xoá" onclick="delRoom(${r.id})"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></button></td>
+    </tr>`).join("");
+  document.getElementById('roomRows').innerHTML=rows;
+  document.getElementById('stTotal').textContent=ROOMS.length;
+  document.getElementById('stActive').textContent=ROOMS.filter(r=>r.status!=='off').length;
+}
+function delRoom(id){ROOMS=ROOMS.filter(r=>r.id!==id);renderRooms();}
+
+/* ADD ROOM */
+function openAdd(){
+  addAmen=[];
+  const box=document.getElementById('aAmen');
+  box.innerHTML='';
+  AMENITIES.forEach(a=>{const c=document.createElement('button');c.className='chip';c.textContent=a;c.onclick=()=>{c.classList.toggle('on');const i=addAmen.indexOf(a);i>-1?addAmen.splice(i,1):addAmen.push(a);};box.appendChild(c);});
+  openModal('addModal');
+}
+function addRoom(){
+  const title=document.getElementById('aTitle').value.trim()||'Phòng mới đăng';
+  const price=Number(document.getElementById('aPrice').value)||3000000;
+  const area=Number(document.getElementById('aArea2').value)||20;
+  const district=document.getElementById('aArea').value;
+  const geo={'Cầu Giấy':[21.0362,105.7906],'Đống Đa':[21.0122,105.8267],'Thanh Xuân':[20.9955,105.8046],'Hai Bà Trưng':[21.0075,105.8523],'Nam Từ Liêm':[21.0181,105.7639],'Hoàng Mai':[20.9788,105.8342],'Tây Hồ':[21.0705,105.8230],'Hà Đông':[20.9710,105.7788]};
+  const g=geo[district]||[21.028,105.81];
+  const id=Math.max(0,...ROOMS.map(r=>r.id))+1;
+  ROOMS.unshift({id,title,type:document.getElementById('aType').value,price,area,address:document.getElementById('aAddr').value||'Đang cập nhật',district,lat:g[0],lng:g[1],beds:1,amenities:addAmen.length?addAmen:['Điều hòa','Wifi'],image:document.getElementById('aImg').value||PLACEHOLDER,note:document.getElementById('aNote').value||'',status:'on'});
+  closeModal('addModal');
+  ['aTitle','aPrice','aArea2','aAddr','aImg','aNote'].forEach(i=>document.getElementById(i).value='');
+  renderRooms();
+  const row=document.querySelector(`#roomRows tr[data-id="${id}"]`);if(row){row.classList.add('new-row');row.scrollIntoView({behavior:'smooth',block:'center'});}
+}
+
+function start(){
+  ROOMS.forEach((r,i)=>{if(!r.status)r.status=(i%5===0)?'off':'on';});
+  fillAreaSelects(['aArea']);
+}
+loadRooms(start);
+</script>
+</body>
+</html>
